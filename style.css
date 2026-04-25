@@ -82,6 +82,7 @@ h1 {
     align-items: start;
 }
 
+/* 響應式佈局 (RWD) */
 @media (max-width: 1200px) {
     .main-content {
         grid-template-columns: 250px 1fr;
@@ -93,10 +94,51 @@ h1 {
 
 @media (max-width: 900px) {
     .main-content {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
     }
+    
+    .sidebar {
+        order: 1; /* 1. 篩選器 */
+        position: relative !important;
+        top: 0 !important;
+        max-height: none !important;
+        margin-bottom: 0;
+    }
+
     .planner-sidebar {
-        grid-column: span 1;
+        order: 2; /* 2. 配裝器面板 (放在中間方便查看屬性) */
+        position: relative !important;
+        top: 0 !important;
+        max-height: none !important;
+        margin-bottom: 0;
+    }
+
+    .gear-section {
+        order: 3; /* 3. 裝備列表放最後面 */
+    }
+
+    /* 手機版篩選器按鈕水平排列 */
+    .filter-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        flex: 1 1 100%;
+    }
+    
+    .gear-grid {
+        grid-template-columns: 1fr;
     }
 }
 
