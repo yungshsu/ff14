@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿卡狄亞零式：輕量級 裝備圖鑑</title>
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 引入 Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 頂部導航/標題 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i data-lucide="swords" class="icon-gold"></i>
+                    <h1>阿卡狄亞零式：輕量級 <span class="highlight">裝備圖鑑</span></h1>
+                </div>
+                <div class="sub-title">AAC Heavyweight Tier (Savage) - Item Level 790</div>
+            </div>
+        </header>
+
+        <!-- 內容區塊 -->
+        <main class="main-content">
+            <!-- 篩選器 -->
+            <aside class="sidebar">
+                <div class="filter-group">
+                    <h3><i data-lucide="shield"></i> 裝備來源 (Source)</h3>
+                    <div id="source-filters" class="filter-buttons">
+                        <button class="filter-btn active" data-source="all">全部 (All)</button>
+                        <!-- 透過 JS 動態產生 -->
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3><i data-lucide="users"></i> 職業角色 (Role)</h3>
+                    <div id="role-filters" class="filter-buttons">
+                        <button class="filter-btn active" data-role="all">全部 (All)</button>
+                        <!-- 透過 JS 動態產生 -->
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3><i data-lucide="shirt"></i> 裝備部位 (Slot)</h3>
+                    <div id="slot-filters" class="filter-buttons">
+                        <button class="filter-btn active" data-slot="all">全部 (All)</button>
+                        <!-- 透過 JS 動態產生 -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 裝備網格 -->
+            <section class="gear-section">
+                <div class="results-info">
+                    顯示 <span id="result-count">0</span> 件裝備
+                    <span style="font-size: 0.8rem; color: #94a3b8; margin-left: 1rem;">(點擊卡片即可穿上裝備)</span>
+                </div>
+                <div id="gear-grid" class="gear-grid">
+                    <!-- 卡片透過 JS 動態產生 -->
+                </div>
+            </section>
+
+            <!-- 配裝模擬器 -->
+            <aside class="planner-sidebar">
+                <div class="planner-header">
+                    <h3><i data-lucide="layout-dashboard"></i> 目前配裝</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button id="toggle-auto-equip" class="action-btn" style="border-color: var(--accent-cyan); color: var(--accent-cyan);"><i data-lucide="zap" style="width: 14px; height: 14px;"></i> 自動配裝</button>
+                        <button id="clear-planner" class="action-btn">清空</button>
+                    </div>
+                </div>
+
+                <!-- 自動配裝面板 (預設隱藏) -->
+                <div id="auto-equip-panel" class="auto-equip-panel" style="display: none;">
+                    <div class="form-group">
+                        <label>目標職業</label>
+                        <select id="auto-role-select">
+                            <!-- 透過 JS 填入 -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>第一優先副屬性</label>
+                        <select id="auto-stat1-select">
+                            <option value="暴擊">暴擊 (Crit)</option>
+                            <option value="信念">信念 (Det)</option>
+                            <option value="直擊">直擊 (DH)</option>
+                            <option value="技速">技速 (SkS)</option>
+                            <option value="詠速">詠速 (SpS)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>第二優先副屬性</label>
+                        <select id="auto-stat2-select">
+                            <option value="信念">信念 (Det)</option>
+                            <option value="暴擊">暴擊 (Crit)</option>
+                            <option value="直擊">直擊 (DH)</option>
+                            <option value="技速">技速 (SkS)</option>
+                            <option value="詠速">詠速 (SpS)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>最高裝備等級限制 (Max IL)</label>
+                        <input type="number" id="auto-il-limit" value="999" style="background: rgba(30, 41, 59, 0.8); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.4rem; border-radius: 4px; font-family: var(--font-primary); outline: none;">
+                    </div>
+                    <button id="run-auto-equip" class="action-btn" style="width: 100%; margin-top: 0.5rem; background: var(--accent-cyan); color: #000; border: none;">執行最佳化配裝</button>
+                </div>
+                
+                <div class="equipped-slots" id="equipped-slots">
+                    <!-- 裝備槽位透過 JS 產生 -->
+                </div>
+
+                <div class="total-stats">
+                    <h3><i data-lucide="bar-chart-2"></i> 總屬性</h3>
+                    <div id="total-stats-container">
+                        <!-- 屬性加總透過 JS 產生 -->
+                        <div class="stat-placeholder">尚未穿戴裝備</div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- 載入資料與邏輯 -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
